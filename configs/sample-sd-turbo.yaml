@@ -1,0 +1,107 @@
+seed: 123456
+device_id: 0
+crop_size: 512
+
+# VAE settings
+tiled_vae: True
+latent_tiled_size: 128
+sample_tiled_size: 1024
+gradient_checkpointing_vae: True
+sliced_vae: False
+use_fusion: True
+use_sd: True
+
+# sampling settings 
+unet:
+  target: basicsr.arch.unet.UNetModelSwin
+  ckpt_path: ./weights/base_weights.pth
+  params:
+    image_size: 64
+    use_res: false
+    use_multout: false
+    task_type: "CPDM"
+    in_channels: 12
+    model_channels: 64
+    out_channels: 12
+    attention_resolutions: [64,32,16,8]
+    dropout: 0
+    channel_mult: [1, 2, 2, 4]
+    num_res_blocks: [2, 2, 2, 2]
+    conv_resample: True
+    dims: 2
+    use_fp16: False
+    num_head_channels: 32
+    use_scale_shift_norm: True
+    resblock_updown: False
+    use_restormer: True
+    swin_depth: 2
+    swin_embed_dim: 192
+    window_size: 8
+    mlp_ratio: 4
+    cond_lq: True
+    lq_size: 64
+    use_var: True
+data:
+  input:
+    # type: RealCPDM
+    # params:
+    #   # dataroot_gt: datasets/test/PSR/cpfa
+    #   # dataroot_lq: datasets/test/PSR/cpfa
+    #   io_backend:
+    #     type: disk
+    type: CPDM
+    params:
+      data_source:
+        # source1:
+        #   use_lq: False
+        #   use_cpfa: False
+        #   dataroot_gt_0: datasets/eval/PSR/PIDSR_aug/gt_0
+        #   dataroot_gt_45: datasets/eval/PSR/PIDSR_aug/gt_45
+        #   dataroot_gt_90: datasets/eval/PSR/PIDSR_aug/gt_90
+        #   dataroot_gt_135: datasets/eval/PSR/PIDSR_aug/gt_135
+        #   dataroot_lq_0: datasets/eval/PSR/PIDSR_aug/gt_0
+        #   dataroot_lq_45: datasets/eval/PSR/PIDSR_aug/gt_45
+        #   dataroot_lq_90: datasets/eval/PSR/PIDSR_aug/gt_90
+        #   dataroot_lq_135: datasets/eval/PSR/PIDSR_aug/gt_135
+        #   dataroot_lq_cpfa: datasets/eval/PSR/PIDSR_aug/gt_135
+        #   meta_info_file: ~
+        #   filename_tmpl: '{}'
+        #   io_backend:
+        #     type: disk
+        source1:
+          use_lq: False
+          use_cpfa: False
+          dataroot_gt_0: datasets/eval/PSR/Tokyo2_gt_512/gt_0
+          dataroot_gt_45: datasets/eval/PSR/Tokyo2_gt_512/gt_45
+          dataroot_gt_90: datasets/eval/PSR/Tokyo2_gt_512/gt_90
+          dataroot_gt_135: datasets/eval/PSR/Tokyo2_gt_512/gt_135
+          dataroot_lq_0: datasets/eval/PSR/Tokyo2_gt_512/gt_0
+          dataroot_lq_45: datasets/eval/PSR/Tokyo2_gt_512/gt_45
+          dataroot_lq_90: datasets/eval/PSR/Tokyo2_gt_512/gt_90
+          dataroot_lq_135: datasets/eval/PSR/Tokyo2_gt_512/gt_135
+          dataroot_lq_cpfa: datasets/eval/PSR/Tokyo2_gt_512/gt_135
+          meta_info_file: ~
+          filename_tmpl: '{}'
+          io_backend:
+            type: disk
+output:
+    output_path_0: results/Tokyo_aug/output_0
+    output_path_45: results/Tokyo_aug/output_45
+    output_path_90: results/Tokyo_aug/output_90
+    output_path_135: results/Tokyo_aug/output_135
+    output_path_S0: results/Tokyo_aug/output_S0
+    output_path_DOLP: results/Tokyo_aug/output_DOLP
+    output_path_AOP: results/Tokyo_aug/output_AOP
+# Stable Diffusion 
+base_model: sd-turbo
+sd_pipe:
+  target: diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline
+  enable_grad_checkpoint: True
+  lora_ckpt_path: ./weights/lora_and_fusion_weights.pth
+  num_train_steps: 1000
+  vae_split: 8
+  params:
+    pretrained_model_name_or_path: stabilityai/sd-turbo
+    cache_dir: weights
+    use_safetensors: True
+    torch_dtype: torch.float32

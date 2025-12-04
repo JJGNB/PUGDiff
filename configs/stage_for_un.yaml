@@ -1,0 +1,181 @@
+project_id: stage_for_un
+trainer:
+  target: trainer_lora.TrainerBasePSR
+resume: False
+resume_opt: False
+use_unet: True
+use_sd: False
+use_fusion: False
+
+sd_pipe:
+  target: diffusers.pipelines.stable_diffusion.pipeline_stable_diffusion.StableDiffusionPipeline
+  num_train_steps: 1000
+  lora_ckpt_path: ~
+  use_inv: False
+  use_lora: False
+  lora_rank: 4
+  enable_grad_checkpoint_vae: False
+  enable_grad_checkpoint: False
+  enable_xformers_memory_efficient_attention: False
+  compile: False
+  vae_split: 8
+  params:
+    pretrained_model_name_or_path: stabilityai/sd-turbo
+    cache_dir: weights
+    use_safetensors: True
+    torch_dtype: torch.float32
+
+unet:
+  target: basicsr.arch.unet.UNetModelSwin
+  ckpt_path: ~
+  params:
+    image_size: 64
+    use_res: false
+    use_multout: false
+    task_type: "CPDM"
+    in_channels: 12
+    model_channels: 64
+    out_channels: 12
+    attention_resolutions: [64,32,16,8]
+    dropout: 0
+    channel_mult: [1, 2, 2, 4]
+    num_res_blocks: [2, 2, 2, 2]
+    conv_resample: True
+    dims: 2
+    use_fp16: False
+    num_head_channels: 32
+    use_scale_shift_norm: True
+    resblock_updown: False
+    use_restormer: True      
+    swin_depth: 2
+    swin_embed_dim: 192
+    window_size: 8
+    mlp_ratio: 4
+    cond_lq: True
+    lq_size: 64
+    use_var: True
+    
+
+data:
+  train:
+    type: CPDM
+    params:
+      data_source:
+        source1:
+          use_lq: False
+          use_cpfa: False
+          dataroot_gt_0: datasets/train/PSR/tokyo256_augall/gt_0
+          dataroot_gt_45: datasets/train/PSR/tokyo256_augall/gt_45
+          dataroot_gt_90: datasets/train/PSR/tokyo256_augall/gt_90
+          dataroot_gt_135: datasets/train/PSR/tokyo256_augall/gt_135
+          dataroot_lq_0: datasets/train/PSR/tokyo256_augall/gt_0
+          dataroot_lq_45: datasets/train/PSR/tokyo256_augall/gt_45
+          dataroot_lq_90: datasets/train/PSR/tokyo256_augall/gt_90
+          dataroot_lq_135: datasets/train/PSR/tokyo256_augall/gt_135
+          dataroot_lq_cpfa: datasets/train/PSR/tokyo256_augall/gt_135
+          meta_info_file: ~
+          filename_tmpl: '{}'
+          io_backend:
+            type: disk
+        source2:
+          use_lq: False
+          use_cpfa: False
+          dataroot_gt_0: datasets/train/PSR/PIDSR256_augall/gt_0
+          dataroot_gt_45: datasets/train/PSR/PIDSR256_augall/gt_45
+          dataroot_gt_90: datasets/train/PSR/PIDSR256_augall/gt_90
+          dataroot_gt_135: datasets/train/PSR/PIDSR256_augall/gt_135
+          dataroot_lq_0: datasets/train/PSR/PIDSR256_augall/gt_0
+          dataroot_lq_45: datasets/train/PSR/PIDSR256_augall/gt_45
+          dataroot_lq_90: datasets/train/PSR/PIDSR256_augall/gt_90
+          dataroot_lq_135: datasets/train/PSR/PIDSR256_augall/gt_135
+          dataroot_lq_cpfa: datasets/train/PSR/PIDSR256_augall/gt_135
+          meta_info_file: ~
+          filename_tmpl: '{}'
+          io_backend:
+            type: disk
+        source3:
+          use_lq: False
+          use_cpfa: False
+          dataroot_gt_0: datasets/train/PSR/outdoors256_augall/gt_0
+          dataroot_gt_45: datasets/train/PSR/outdoors256_augall/gt_45
+          dataroot_gt_90: datasets/train/PSR/outdoors256_augall/gt_90
+          dataroot_gt_135: datasets/train/PSR/outdoors256_augall/gt_135
+          dataroot_lq_0: datasets/train/PSR/outdoors256_augall/gt_0
+          dataroot_lq_45: datasets/train/PSR/outdoors256_augall/gt_45
+          dataroot_lq_90: datasets/train/PSR/outdoors256_augall/gt_90
+          dataroot_lq_135: datasets/train/PSR/outdoors256_augall/gt_135
+          dataroot_lq_cpfa: datasets/train/PSR/outdoors256_augall/gt_135
+          meta_info_file: ~
+          filename_tmpl: '{}'
+          io_backend:
+            type: disk
+  val:
+    type: CPDM
+    crop_szie: 512
+    params:
+      data_source:
+        source1:
+          use_lq: False
+          use_cpfa: False
+          dataroot_gt_0: datasets/eval/PSR/PIDSR_aug/gt_0
+          dataroot_gt_45: datasets/eval/PSR/PIDSR_aug/gt_45
+          dataroot_gt_90: datasets/eval/PSR/PIDSR_aug/gt_90
+          dataroot_gt_135: datasets/eval/PSR/PIDSR_aug/gt_135
+          dataroot_lq_0: datasets/eval/PSR/PIDSR_aug/gt_0
+          dataroot_lq_45: datasets/eval/PSR/PIDSR_aug/gt_45
+          dataroot_lq_90: datasets/eval/PSR/PIDSR_aug/gt_90
+          dataroot_lq_135: datasets/eval/PSR/PIDSR_aug/gt_135
+          dataroot_lq_cpfa: datasets/eval/PSR/PIDSR_aug/gt_135
+          meta_info_file: ~
+          filename_tmpl: '{}'
+          io_backend:
+            type: disk
+  test:
+    test_for_real: true
+    crop_size: 512
+    cpfa_path: datasets/test/PSR/cpfa_fgo
+    
+train:
+
+  gt_size: 256
+  # learning rate
+  lr: 5e-5                      # learning rate 
+  lr_min: 5e-5                  # learning rate 
+  lr_schedule: ~
+  warmup_iterations: 2000         
+  # dataloader
+  batch: 2            
+  microbatch: 2
+  num_workers: 2
+  prefetch_factor: 2            
+  # optimization settings
+  weight_decay: 0               
+  # ema_rate_np: 0.999
+  ema_rate: 0.999
+  iterations: 200000            # total iterations
+  # logging
+  save_freq: 5000
+  log_freq: [10, 2500]         # [print_loss,print_train_image]
+  local_logging: True           # manually save images
+  tf_logging: False             # tensorboard logging
+  # loss 
+  loss_type: L1
+  loss_coef:
+    lpix: 0
+    lpol: 0
+    lvar: 1.0
+    lself: 0
+  timesteps: [100]
+  num_inference_steps: 1
+  # mixed precision
+  use_amp: True                
+  use_fsdp: False                
+  # random seed 
+  seed: 123456                 
+  global_seeding: False
+  noise_detach: False
+
+validate:
+  batch: 2           
+  log_freq: 25      # logging frequence
+  val_y_channel: False

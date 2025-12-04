@@ -1,0 +1,199 @@
+Metadata-Version: 2.4
+Name: diffusers
+Version: 0.30.0.dev0
+Summary: State-of-the-art diffusion in PyTorch and JAX.
+Home-page: https://github.com/huggingface/diffusers
+Author: The Hugging Face team (past and future) with the help of all our contributors (https://github.com/huggingface/diffusers/graphs/contributors)
+Author-email: diffusers@huggingface.co
+License: Apache 2.0 License
+Keywords: deep learning diffusion jax pytorch stable diffusion audioldm
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.8.0
+Description-Content-Type: text/markdown
+Requires-Dist: importlib_metadata
+Requires-Dist: filelock
+Requires-Dist: huggingface-hub>=0.23.2
+Requires-Dist: numpy
+Requires-Dist: regex!=2019.12.17
+Requires-Dist: requests
+Requires-Dist: safetensors>=0.3.1
+Requires-Dist: Pillow
+Provides-Extra: quality
+Requires-Dist: urllib3<=2.0.0; extra == "quality"
+Requires-Dist: isort>=5.5.4; extra == "quality"
+Requires-Dist: ruff==0.1.5; extra == "quality"
+Requires-Dist: hf-doc-builder>=0.3.0; extra == "quality"
+Provides-Extra: docs
+Requires-Dist: hf-doc-builder>=0.3.0; extra == "docs"
+Provides-Extra: training
+Requires-Dist: accelerate>=0.31.0; extra == "training"
+Requires-Dist: datasets; extra == "training"
+Requires-Dist: protobuf<4,>=3.20.3; extra == "training"
+Requires-Dist: tensorboard; extra == "training"
+Requires-Dist: Jinja2; extra == "training"
+Requires-Dist: peft>=0.6.0; extra == "training"
+Provides-Extra: test
+Requires-Dist: compel==0.1.8; extra == "test"
+Requires-Dist: GitPython<3.1.19; extra == "test"
+Requires-Dist: datasets; extra == "test"
+Requires-Dist: Jinja2; extra == "test"
+Requires-Dist: invisible-watermark>=0.2.0; extra == "test"
+Requires-Dist: k-diffusion>=0.0.12; extra == "test"
+Requires-Dist: librosa; extra == "test"
+Requires-Dist: parameterized; extra == "test"
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-timeout; extra == "test"
+Requires-Dist: pytest-xdist; extra == "test"
+Requires-Dist: requests-mock==1.10.0; extra == "test"
+Requires-Dist: safetensors>=0.3.1; extra == "test"
+Requires-Dist: sentencepiece!=0.1.92,>=0.1.91; extra == "test"
+Requires-Dist: scipy; extra == "test"
+Requires-Dist: torchvision; extra == "test"
+Requires-Dist: transformers>=4.41.2; extra == "test"
+Provides-Extra: torch
+Requires-Dist: torch>=1.4; extra == "torch"
+Requires-Dist: accelerate>=0.31.0; extra == "torch"
+Provides-Extra: flax
+Provides-Extra: dev
+Requires-Dist: urllib3<=2.0.0; extra == "dev"
+Requires-Dist: isort>=5.5.4; extra == "dev"
+Requires-Dist: ruff==0.1.5; extra == "dev"
+Requires-Dist: hf-doc-builder>=0.3.0; extra == "dev"
+Requires-Dist: compel==0.1.8; extra == "dev"
+Requires-Dist: GitPython<3.1.19; extra == "dev"
+Requires-Dist: datasets; extra == "dev"
+Requires-Dist: Jinja2; extra == "dev"
+Requires-Dist: invisible-watermark>=0.2.0; extra == "dev"
+Requires-Dist: k-diffusion>=0.0.12; extra == "dev"
+Requires-Dist: librosa; extra == "dev"
+Requires-Dist: parameterized; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-timeout; extra == "dev"
+Requires-Dist: pytest-xdist; extra == "dev"
+Requires-Dist: requests-mock==1.10.0; extra == "dev"
+Requires-Dist: safetensors>=0.3.1; extra == "dev"
+Requires-Dist: sentencepiece!=0.1.92,>=0.1.91; extra == "dev"
+Requires-Dist: scipy; extra == "dev"
+Requires-Dist: torchvision; extra == "dev"
+Requires-Dist: transformers>=4.41.2; extra == "dev"
+Requires-Dist: accelerate>=0.31.0; extra == "dev"
+Requires-Dist: datasets; extra == "dev"
+Requires-Dist: protobuf<4,>=3.20.3; extra == "dev"
+Requires-Dist: tensorboard; extra == "dev"
+Requires-Dist: Jinja2; extra == "dev"
+Requires-Dist: peft>=0.6.0; extra == "dev"
+Requires-Dist: hf-doc-builder>=0.3.0; extra == "dev"
+Requires-Dist: torch>=1.4; extra == "dev"
+Requires-Dist: accelerate>=0.31.0; extra == "dev"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Polarization Uncertainty-Guided Diffusion Model for Color Polarization Image Demosaicking (AAAI 2026)
+
+
+
+
+
+
+:star: If you've found PUGDiff useful for your research or projects, please show your support by starring this repo. Thanks! :hugs: 
+
+---
+> Color polarization demosaicking (CPDM) aims to reconstruct full-resolution polarization images of four directions from the color-polarization filter array (CPFA) raw image. Due to the challenge of predicting numerous missing pixels and the scarcity of high-quality training data, existing network-based methods, despite effectively recovering scene intensity information, still exhibit significant errors in reconstructing polarization characteristics (degree of polarization, DOP, and angle of polarization, AOP). To address this problem, we introduce the image diffusion prior from text-to-image (T2I) models to overcome the performance bottleneck of network-based methods, with the additional diffusion prior compensating for limited representational capacity caused by restricted data distribution. To effectively leverage the diffusion prior, we explicitly model the polarization uncertainty during reconstruction and use uncertainty to guide the diffusion model in recovering high error regions. Extensive experiments demonstrate that the proposed method accurately recovers scene polarization characteristics with both high fidelity and strong visual perception.
+><img src="./assets/framework.png" align="middle" width="800">
+---
+## Update
+- **2025.12.04**: PUGDiff is released.
+
+## Requirements
+
+```
+conda create -n pugdiff python=3.10
+conda activate pugdiff
+pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
+pip install -e ".[torch]"
+pip install -r requirements.txt
+```
+
+
+## Inference
+### :rocket: Fast testing 
+```
+python inference_psr.py
+```
+1. Download the weights from this [link](https://pan.baidu.com/s/1amoKsA8tZoXrqCkXxhbwJg?pwd=3eig), and replace the "weights" folder.
+
+2. All configuration files are stored in the "configs" folder. Modify "sample-sd-turbo.yaml" to achieve the desired processing results.
+
+3. By default, CPFA is synthesized using GT. Store the corresponding angles in "dataroot_gt_{x}". Ensure "dataroot_lq" is consistent with "dataroot_gt" to allow the program to run correctly. 
+
+4. To run on real images, change the "type" to "RealCPDM" and update "dataroot_gt" to the folder where the CPFA data is stored. Alternatively, simply uncomment the lines I have prepared. 
+
+5. "unet.ckpt_path" denotes the path to the base branch weights, and "lora_ckpt_path" denotes the path to the sd branch and fusion module weights.
+
+6. Modify "crop_size" to change the image size, and the location for the final results is determined by "output_path_{x}".
+
+
+
+
+
+
+## Training
+### :turtle: Preparing stage
+1. We use datasets from [EARI](http://www.ok.sc.e.titech.ac.jp/res/PolarDem/index.html), [Qiu's](https://repository.kaust.edu.sa/items/3653d5cd-a78b-40d7-899e-57f5f137ca85) and [PIDSR](https://github.com/PRIS-CV/PIDSR). Download the datasets from this [link](https://pan.baidu.com/s/1LOBak_wWPUNDsEnyfpYE9g?pwd=m8cs), and replace the "datasets" folder.
+2. Prepare the config file:
+    + SD-Turbo path: configs.sd_pipe.params.cache_dir.
+    + Training data path: data.train.params.source{x}.
+    + Validation data path: data.val.params.source{x}.
+3. The results will be stored in "experiments" folder.
+
+### :dolphin: Begin training
+1. Train the base branch.
+```
+python main.py '--cfg_path' 'stage_for_base.yaml'
+```
+2. Train the uncertainty network.
+```
+python main.py '--cfg_path' 'stage_for_un.yaml'
+```
+Set "unet.ckpt_path" to the path of the best base branch weight.
+3. Train the sd branch.
+```
+python main.py '--cfg_path' 'stage_for_sd.yaml'
+```
+Set "unet.ckpt_path" to the path of the best base branch weight.
+4. Train the fusion module.
+```
+python main.py '--cfg_path' 'stage_for_fusion.yaml'
+```
+Set "unet.ckpt_path" to the path of the best base branch weight, "unet.teacher_ckpt_path" to the path of the uncertainty network weight, and "sd_pipe.lora_ckpt_path" to the path of the best sd branch weight.
+### :whale: Resume from interruption
+Set "resume" and "resume_opt" to "True", and "unet.ckpt_path", "unet.teacher_ckpt_path", "sd_pipe.lora_ckpt_path" to the weight path.
+
+
+
+## Acknowledgement
+
+This project is based on [BasicSR](https://github.com/XPixelGroup/BasicSR), [diffusers](https://github.com/huggingface/diffusers), [OSEDiff](https://github.com/cswry/OSEDiff), [InvSR](https://github.com/zsyOAOA/InvSR) and [UDL](https://github.com/QianNing0/UDL). Thanks for their awesome works.
+
+### Contact
+If you have any questions, please feel free to contact me via `244603040@csu.edu.com` or open an issue.
