@@ -28,7 +28,6 @@ def get_parser(**parser_kwargs):
     return args
 
 if __name__ == "__main__":
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0' 
     args = get_parser()
     configs = OmegaConf.load(args.cfg_path)
     # merge args to config
