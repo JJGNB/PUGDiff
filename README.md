@@ -90,4 +90,4 @@ Set "resume" and "resume_opt" to "True", and "unet.ckpt_path", "unet.teacher_ckp
 This project is based on [BasicSR](https://github.com/XPixelGroup/BasicSR), [diffusers](https://github.com/huggingface/diffusers), [OSEDiff](https://github.com/cswry/OSEDiff), [InvSR](https://github.com/zsyOAOA/InvSR) and [UDL](https://github.com/QianNing0/UDL). Thanks for their awesome works.
 
 ### Contact
-If you have any questions, please feel free to contact me via `244603040@csu.edu.com` or open an issue.
+If you have any questions, please feel free to contact me via `244603040@csu.edu.cn` or open an issue.
