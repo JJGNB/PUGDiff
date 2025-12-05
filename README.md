@@ -68,11 +68,13 @@ python main.py '--cfg_path' 'configs/stage_for_base.yaml'
 python main.py '--cfg_path' 'configs/stage_for_un.yaml'
 ```
 Set "unet.ckpt_path" to the path of the best base branch weight.
+
 3. Train the sd branch.
 ```
 python main.py '--cfg_path' 'configs/stage_for_sd.yaml'
 ```
 Set "unet.ckpt_path" to the path of the best base branch weight.
+
 4. Train the fusion module.
 ```
 python main.py '--cfg_path' 'configs/stage_for_fusion.yaml'
