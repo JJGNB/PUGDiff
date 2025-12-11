@@ -64,7 +64,7 @@ data:
         source1:
           use_lq: False
           use_cpfa: False
-          dataroot_gt_0: F:/DeepLearning/Super_Resolution/code/InvSR-master/InvSR-master/datasets/train/PSR/tokyo256_augall/gt_0
+          dataroot_gt_0: datasets/train/PSR/tokyo256_augall/gt_0
           dataroot_gt_45: datasets/train/PSR/tokyo256_augall/gt_45
           dataroot_gt_90: datasets/train/PSR/tokyo256_augall/gt_90
           dataroot_gt_135: datasets/train/PSR/tokyo256_augall/gt_135
