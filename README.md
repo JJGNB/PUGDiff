@@ -91,3 +91,13 @@ This project is based on [BasicSR](https://github.com/XPixelGroup/BasicSR), [dif
 
 ### Contact
 If you have any questions, please feel free to contact me via `244603040@csu.edu.cn` or open an issue.
+## References
+If you find this repository useful for your research, please cite the following work.
+```
+@article{li2026pugdiff,
+  title={Polarization Uncertainty-Guided Diffusion Model for Color Polarization Image Demosaicking},
+  author={Li, Chenggong and Luo, Yidong and Zhang, Junchao and Yang Degui},
+  journal={arXiv preprint arXiv: 2602.23847},
+  year={2026}
+}
+```
