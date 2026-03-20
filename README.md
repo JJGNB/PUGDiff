@@ -97,7 +97,13 @@ If you find this repository useful for your research, please cite the following 
 @article{li2026pugdiff,
   title={Polarization Uncertainty-Guided Diffusion Model for Color Polarization Image Demosaicking},
   author={Li, Chenggong and Luo, Yidong and Zhang, Junchao and Yang Degui},
-  journal={arXiv preprint arXiv: 2602.23847},
-  year={2026}
+  journal={Proceedings of the AAAI Conference on Artificial Intelligence},
+number={8},
+volume={40},
+pages={6028-6036},
+  year={2026},
+month={Mar.},
+url={https://ojs.aaai.org/index.php/AAAI/article/view/37526},
+DOI={10.1609/aaai.v40i8.37526}
 }
 ```
